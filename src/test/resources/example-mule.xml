@@ -18,7 +18,10 @@ http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mul
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
 
   <sub-flow name="exampleFlow">
+
+    
     <logger message="" level="INFO" category=""/>
+    
 
     <set-session-variable variableName="payloadBeforeUntilSuccess" value="#[payload]"/>
     <until-successful maxRetries="${http.max.retries}" failureExpression="exception!=null &amp;&amp; (exception.causedBy(java.io.IOException) || exception.causedBy(java.net.ConnectException)  || exception.causedBy(java.net.SocketTimeoutException))" synchronous="true" millisBetweenRetries="${http.milliSecondsBetweenRetries}">
@@ -30,10 +33,12 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
       </http:request>
     </until-successful>
 
+    
     <logger message="system=Phoenix method=CreateProject action=response projectId=#[flowVars.projectId] invocationId=#[flowVars.invocationId]" level="INFO" category="com.example.area"/>
     <logger message="system=Phoenix method=CreateProject action=response projectId=#[flowVars.projectId] invocationId=#[flowVars.invocationId] payload=#[payload]" level="DEBUG" category="com.example.area"/>
 
     <logger message="This should fail for no category" level="DEBUG"/>
+    
 
     <http:request config-ref="httpRequestConfiguration" path="${api.path}" method="POST">
       <http:request-builder>
