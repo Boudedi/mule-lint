@@ -51,6 +51,9 @@ class MuleLint {
       return runWithModel(optionsModel)
     }
     catch (Exception ex) {
+      // Rodolphe Lezennec: Add a log.error
+      // Oct 22, 2019
+      log.error("Exception catched", ex)
       return ErrorCodes.GenericFailure
     }
   }
